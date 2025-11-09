@@ -10,7 +10,7 @@ logger = logging.getLogger("ssh_telebot")
 # إنشاء البوت
 bot = TeleBot("7973768312:AAEeUlzcqAp58e4M7n4iCBpIWc2pz5XEsH0")
 
-# إعدادات APIs
+# إعدادات APIs (متبقية كما هي)
 APIS = {
     "MAYNET": "https://painel.meowssh.shop:5000/test_ssh_public",
     "MEOW": "http://158.69.20.4:5000/test_ssh_public"
@@ -36,13 +36,13 @@ def start_handler(message: Message):
 
 @bot.message_handler(func=lambda message: message.text == "🌐 MAYNET")
 def maynet_handler(message: Message):
-    """معالجة زر MAYNET"""
-    create_ssh_account(message, "MAYNET")
+    """زر MAYNET يعطي حساب من Meow-DT"""
+    create_ssh_account(message, "MEOW")  # تغيير هنا
 
 @bot.message_handler(func=lambda message: message.text == "🐱 Meow-DT")
 def meow_handler(message: Message):
-    """معالجة زر Meow-DT"""
-    create_ssh_account(message, "MEOW")
+    """زر Meow-DT يعطي حساب من MAYNET"""
+    create_ssh_account(message, "MAYNET")  # تغيير هنا
 
 def create_ssh_account(message: Message, api_type: str):
     """دالة مساعدة لإنشاء الحسابات"""
@@ -84,5 +84,5 @@ def echo_all(message: Message):
         bot.reply_to(message, "🔹 اختر أحد الخيارات من الكيبورد:", reply_markup=create_main_keyboard())
 
 if __name__ == "__main__":
-    logger.info("✅ بدء تشغيل البوت مع كيبورد ثابت...")
+    logger.info("✅ بدء تشغيل البوت مع تبديل الأدوار...")
     bot.polling(none_stop=True)
